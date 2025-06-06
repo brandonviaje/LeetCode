@@ -21,5 +21,3 @@ This repository is a personal archive of my **accepted solutions** on [LeetCode]
 - Feel free to browse for inspiration, but I recommend solving problems on your own first!
 
 ---
-
-Happy grinding!
