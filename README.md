@@ -2,6 +2,8 @@
 
 This repository is a personal archive of my **accepted solutions** on [LeetCode](https://leetcode.com/). Every file here represents a problem I've successfully solved. I do it for the love of the game....
 
+![leetcodecoin](https://camo.githubusercontent.com/4dd2ec94f1a40fdb26a735f1f2e2a07ff54a9f4ce4a544bdcfaf1e49095fb663/68747470733a2f2f692e70696e696d672e636f6d2f6f726967696e616c732f37332f65312f35342f37336531353432323031316537363365613962333033613737333865373161332e676966)
+
 ## Contents
 
 - Only correct/accepted solutions are included. ✅ 
