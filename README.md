@@ -8,6 +8,13 @@ This repository is a personal archive of my **accepted solutions** on [LeetCode]
 - Solutions are mostly unedited from submission — they may be brute force or optimal depending on the attempt.
 - Organized by language and/or topic depending on how I was solving them.
 
+## Languages
+- Python
+- Java
+- C++
+
+I'm probably gonna add new languages later on but I plan on just writing it in these three.
+
 ## Purpose
 
 - Track my progress solving LeetCode problems
