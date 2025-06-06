@@ -1,6 +1,6 @@
 # LeetCode Submissions
 
-This repository is a personal archive of my **accepted solutions** on [LeetCode](https://leetcode.com/). Every file here represents a problem I've successfully solved.
+This repository is a personal archive of my **accepted solutions** on [LeetCode](https://leetcode.com/). Every file here represents a problem I've successfully solved. I do it for the love of the game....
 
 ## Contents
 
@@ -21,3 +21,5 @@ This repository is a personal archive of my **accepted solutions** on [LeetCode]
 - Feel free to browse for inspiration, but I recommend solving problems on your own first!
 
 ---
+
+![Leetcode](https://media1.tenor.com/m/mBA6nsqEbUQAAAAd/leetcode-cat.gif)
