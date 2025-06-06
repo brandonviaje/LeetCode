@@ -1,4 +1,4 @@
-# 📝 LeetCode Submissions
+# LeetCode Submissions
 
 This repository is a personal archive of my **accepted solutions** on [LeetCode](https://leetcode.com/). Every file here represents a problem I've successfully solved.
 
