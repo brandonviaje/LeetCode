@@ -21,6 +21,17 @@ I'm probably gonna add new languages later on but I plan on just writing it in t
 - Serve as a reference for revisiting problems later
 - Help reinforce patterns and techniques over time
 
+## Patterns
+Some of the patterns/algorithms that I have come across so far:
+- 2 Pointers
+- Sliding Window
+- BackTracking
+- Top Up DP
+- Greedy
+- DFS
+- BFS
+- Monotonic Stack
+
 ## Notes
 
 - This repo isn't meant to showcase polished code.
