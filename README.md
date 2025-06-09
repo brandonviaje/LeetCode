@@ -28,7 +28,7 @@ Some of the patterns/algorithms that I have come across so far:
 - 2 Pointers
 - Sliding Window
 - BackTracking
-- Top Up DP
+- Top Down DP
 - Greedy
 - DFS
 - BFS
