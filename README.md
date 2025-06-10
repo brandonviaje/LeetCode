@@ -26,6 +26,7 @@ I'm probably gonna add new languages later on but I plan on just writing it in t
 ## Patterns
 Some of the patterns/algorithms that I have come across so far:
 - 2 Pointers
+- Binary Search
 - Sliding Window
 - BackTracking
 - Top Down DP
