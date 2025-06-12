@@ -29,6 +29,7 @@ Some of the patterns/algorithms that I have come across so far:
 - Binary Search
 - Sliding Window
 - BackTracking
+- Rolling Hash
 - Top Down DP
 - Greedy
 - DFS
