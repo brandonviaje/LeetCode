@@ -29,7 +29,7 @@ class Solution:
         maxArea = 0
         for row in range(len(grid)):
             for col in range(len(grid[0])):
-                if grid[row][col] == 1:
+                if grid[row][col] == 1 and (row,col) not in seen:
                     area = self.DFS(grid,row,col,seen) #DFS to find area of that island
                     maxArea = max(maxArea,area) # update max area
 
