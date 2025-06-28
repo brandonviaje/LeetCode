@@ -5,23 +5,26 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-
-    def DFS(self, node:Optional[TreeNode], targetSum:int, findSum:int):
-        if node is None:
-            return False
-
-        # update sum
-        findSum += node.val
-
-        # check if it's a leaf
-        if node.left is None and node.right is None:
-            return targetSum == findSum
-        
-        # else explore left tree or right tree if available until we get a leaf node
-        return self.DFS(node.left,targetSum, findSum) or  self.DFS(node.right,targetSum, findSum)
-
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        findSum = 0
-        # call DFS
-        return self.DFS(root,targetSum,findSum)
+        """
+        self.dfs(root.left,result)
+        """
+        result = 0
+        return self.dfs(root, result, targetSum)
+
+    def dfs(self, root, result, targetSum): # inorder traversal, go as far left, then check right, backtrack
+        if root is None:
+            return False
+        # [5, 4, 11, 2]
+        result += root.val
+
+        if not root.right and not root.left: # if a leaf node
+            print(f"{root.val} is a leaf, current result is {result} target is {targetSum}")
+            return result == targetSum
+
+        return self.dfs(root.left, result, targetSum) or self.dfs(root.right, result, targetSum)
+        
+        
+
+            
         
