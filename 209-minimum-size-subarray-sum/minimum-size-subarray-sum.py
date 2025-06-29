@@ -25,5 +25,5 @@ class Solution:
 
          shrink window if add >= target
          expand if < target
-         T O(n) S O(n)
+         T O(n) S O(1)
         """
