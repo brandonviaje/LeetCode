@@ -31,6 +31,7 @@ Some of the patterns/algorithms that I have come across so far:
 - BackTracking
 - Rolling Hash
 - Top Down DP
+- Topological Sort
 - Greedy
 - DFS
 - BFS
