@@ -16,19 +16,17 @@ class Solution:
 
         queue = deque([root])
         total = 0
-        leftNode = set()
         
         while queue:
             cand = queue.popleft()
 
-            # check if its in the set and is a leaf node
-            if not cand.left and not cand.right and cand in leftNode:
-                total += cand.val
-
             # if theres a left leaf, update total and add to set to track that its a left node
             if cand.left:
-                leftNode.add(cand.left)
-                queue.append(cand.left)
+                # check if the left node is a leaf node
+                if not cand.left.left and not cand.left.right:
+                    total += cand.left.val
+                else:
+                    queue.append(cand.left)
 
             if cand.right:
                 queue.append(cand.right)
