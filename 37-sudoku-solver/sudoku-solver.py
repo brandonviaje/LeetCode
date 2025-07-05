@@ -6,9 +6,6 @@ class Solution:
         boxes = [set() for _ in range(9)]
         
         nums = ['1','2','3','4','5','6','7','8','9']
-        
-        def boxIndex(row,col):
-            return (row//3) * 3 + (col//3)
                 
         def backtrack(index):
             """
@@ -24,7 +21,7 @@ class Solution:
                 return True
                 
             row, col = coords[index]
-            boxI = boxIndex(row,col)
+            boxI = (row//3) * 3 + (col//3)
 
             # 2. try a decision
             for num in nums:
@@ -54,13 +51,12 @@ class Solution:
         
         for i in range(9):
             for j in range(9):
-                val = board[i][j]
                 # if empty conntinue
                 if board[i][j] == ".":
                     coords.append((i,j))
                 else: #else add number to set for its row, col, and box
-                    rows[i].add(val)
-                    cols[j].add(val)
-                    boxes[boxIndex(i,j)].add(val)
+                    rows[i].add(board[i][j])
+                    cols[j].add(board[i][j])
+                    boxes[(i//3) * 3 + (j//3)].add(board[i][j])
         
         backtrack(0)
