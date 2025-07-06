@@ -10,7 +10,7 @@ class Twitter:
         self.time += 1 #update timestamp
 
     def getNewsFeed(self, userId: int) -> List[int]:
-        heap = [] # min heap for the most recent
+        heap = [] # max heap for the most recent
 
         # copy userIds
         users = self.follows[userId].copy()
