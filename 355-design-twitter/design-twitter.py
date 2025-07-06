@@ -16,8 +16,8 @@ class Twitter:
         users = self.follows[userId].copy()
         users.add(userId) 
 
-        for uid in users:
-            for time, tid in self.tweets[uid][-10:]: 
+        for userId in users:
+            for time, tid in self.tweets[userId][-10:]: 
                 heapq.heappush(heap, (-time, tid))
 
         result = []
