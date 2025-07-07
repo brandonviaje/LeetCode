@@ -1,25 +1,27 @@
 class Solution:
     def reverseWords(self, s: str) -> str:
-        
         """
-        "the sky is blue"
-                   ^
-                  ^
+        "  hello world  "
+         ^
+         ^
         """
-        build = []
-        l,r = len(s) - 1, len(s) - 1
+        l,r = len(s)-1,len(s)-1
+        result = []
 
-        while l >= 0:
-
-
-            while l>=0 and s[l] == ' ':
-                l -= 1
-            r = l
-
-            while l>= 0 and s[l] != ' ':
+        while r >= 0:
+            # get rid of the trailing spaces
+            while s[r] == ' ':
+                r -= 1
                 l -= 1
 
-            if r >= 0:
-                build.append(s[l+1:r+1])
+            # shift left until we come across a space 
+            while l >= 0 and s[l] != ' ':
+                l -= 1
+            
+            if l != r:
+                result.append(s[l+1:r+1])
+                r = l
 
-        return ' '.join(build)
+        return " ".join(result)
+
+            
