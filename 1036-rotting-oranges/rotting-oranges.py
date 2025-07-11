@@ -1,43 +1,59 @@
 from collections import deque
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        rows, cols = len(grid), len(grid[0])
+        """
+        Notes:
+        - w
+        """
         queue = deque()
         fresh = 0
-
-        # queue all rotten oranges, count fresh
-        for r in range(rows):
-            for c in range(cols):
-                if grid[r][c] == 2:
-                    queue.append((r, c))
-                elif grid[r][c] == 1:
+        min_minutes = 0
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 0:
+                    continue
+                elif grid[i][j] == 2:
+                    queue.append((i, j))
+                else:
                     fresh += 1
-
-        # no fresh oranges, return 0
+        
         if fresh == 0:
             return 0
-
-        minutes = 0
-        directions = [(-1,0), (1,0), (0,-1), (0,1)]
-
-        # BFS
+        """
+        fresh = 1
+        [(0,1)]
+        row = 0
+        col = 1
+        
+        
+        """
+        
         while queue and fresh > 0:
-            # process current level
-            for _ in range(len(queue)):  
-                r, c = queue.popleft()
+            
+            for _ in range(len(queue)):
+                row,col = queue.popleft()
+                print(row, col)
+                
+                neighbs = [
+                    (row -1 , col),
+                    (row + 1, col),
+                    (row, col - 1),
+                    (row, col + 1)
+                ]
+               
+                for neighb_row,neighb_col in neighbs:
+                    # boundary checks and also check if its a fresh orange
+                    if 0 <= neighb_row < len(grid) and 0<=neighb_col<len(grid[0]) and grid[neighb_row][neighb_col] == 1:
+                        grid[neighb_row][neighb_col] = 2
+                        fresh -= 1
+                        queue.append((neighb_row,neighb_col))
+        
+            min_minutes += 1
+        
 
-                for dr, dc in directions:
-                    nr, nc = r + dr, c + dc
-
-                    # bounds check, and check if it its fresh
-                    if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 1:
-                        grid[nr][nc] = 2 # change in place
-                        fresh -= 1 # decrease fresh count
-                        queue.append((nr, nc)) # add to queue to explore the next
-
-            minutes += 1  
-
-        if fresh == 0:
-            return minutes 
-        else: # else theres still fresh oranges that can go rotten
+        if fresh > 0:
             return -1
+        
+        return min_minutes
+        
