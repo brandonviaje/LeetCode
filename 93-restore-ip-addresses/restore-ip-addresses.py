@@ -20,12 +20,11 @@ class Solution:
             for i in range(index,len(s)):
                 # check if its a valid number (0-255)
                 if validNum(s[index:i+1]):
+
                     # PRUNE: CHECK IF THERE'S ENOUGH  OR TOO MANY CHARS
-                    if len(s) - (i + 1) > (segmentsLeft - 1) * 3:
+                    if len(s) - (i + 1) > (segmentsLeft - 1) * 3 or len(s) - (i + 1) < (segmentsLeft - 1):
                         continue
-                    if len(s) - (i + 1) < (segmentsLeft - 1): 
-                        continue
-                    
+  
                     # ADD TO SOMETHING  
                     path.append(s[index:i+1])
 
