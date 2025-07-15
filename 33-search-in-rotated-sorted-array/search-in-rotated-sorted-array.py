@@ -1,25 +1,30 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        left,right = 0,len(nums)-1
+        l,r = 0 , len(nums)-1
 
-        while left <= right:
-            mid = (left+right)//2
+        while l <= r:
+            mid = (l+r)//2
 
+            # if nums at middle is target return
             if nums[mid] == target:
                 return mid
 
-            if nums[left] <= nums[mid]:
-                if nums[left] <= target <= nums[mid]:
-                    right = mid - 1
-                else:
-                    left = mid + 1
+            # check if left side is sorted
+            if nums[l] <= nums[mid]:
+                # check if its in the left side else we explore the right
+
+                # check if it is in the range of the left, if it isn't then it must be in the right side
+                if target < nums[l] or target > nums[mid]:
+                    l = mid + 1
+                else: # else it must be in the left side, update right pointer
+                    r = mid - 1
             else:
-                if nums[mid] < target <= nums[right]:
-                    left = mid + 1
-                else:
-                    right = mid - 1
+                # check if target is in the right side of the array, if it isnt, it must be on the left side
+                if target < nums[mid] or target > nums[r]:
+                    r = mid - 1
+                else: # else it must be in the right side, update left pointer
+                    l = mid + 1
 
         return -1
-        
 
         # T O(logn) S O(1)
