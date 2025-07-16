@@ -1,32 +1,20 @@
 class Solution:
     def reverseWords(self, s: str) -> str:
-        """
-        "I love u"
-                ^
-                R
-                L
-        """
-        l,r,scan = 0,0,0
-        
-        res = ""
+        def reverse_word(word):
+            word = list(word)
+            left, right = 0, len(word) - 1
+            # two pointers to reverse
+            while left < right:
+                word[left], word[right] = word[right], word[left]
+                left += 1
+                right -= 1
+            return ''.join(word)
 
-        while scan < len(s):
+        words = s.split(' ') # only parse the word not the spaces
+        res = []
 
-            if s[scan] == " ":
-                r = scan - 1
-                while r >= l:
-                    res += s[r]
-                    r -= 1
-                
-                res += " "
-                l = scan + 1
+        # iterate through the list and reverse
+        for word in words:
+            res.append(reverse_word(word))
 
-            scan += 1
-
-        r = len(s)-1
-        
-        while r >= l:
-            res += s[r]
-            r-= 1
-
-        return res
+        return ' '.join(res)
