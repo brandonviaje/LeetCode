@@ -1,37 +1,37 @@
 class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
         """
-        [-4, -1, 1, 2]
-          ^
-                 ^       
-                    ^
+        [-4,-1,1,2]
+             ^
+               ^
+                  ^
 
-        sum = -1
+        target: 1
+        diff = 2
+        res = -3
+        sum: -3
 
+        - find the smallest sum of the three numbers that are closest to the target
+        - that means you need to use the smallest difference of the threeSum and target and keep updating it like that
+        - three pointers to scan through the array, but should sort it first so that we can update pointers accordingly
         """
         nums.sort()
-        diff = float('inf')
-        closest = 0
+        result = 0
+        prevDiff = float('inf')
+
         for i in range(len(nums)):
-            # avoid dupes
-            if i > 0 and nums[i] == nums[i-1]:
-                continue
+            l,r = i + 1, len(nums)-1
 
-            left = i + 1
-            right = len(nums)-1
-            
-            while left < right:
-                threeSum = nums[i] + nums[left] + nums[right]
-
-                if abs(threeSum - target) < diff:
-                    diff = abs(threeSum - target)
-                    closest = threeSum
+            while l < r:
+                threeSum = nums[i] + nums[l] + nums[r]
                 
-                if threeSum == target:
-                    return threeSum
-                elif threeSum > target:
-                    right -= 1
-                else:
-                    left += 1
+                if abs(target-threeSum) < prevDiff:
+                    prevDiff = abs(target-threeSum)
+                    result = threeSum
 
-        return closest
+                if threeSum > target:
+                    r -= 1
+                else:
+                    l += 1
+
+        return result 
