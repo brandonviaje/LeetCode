@@ -1,17 +1,26 @@
 class Solution:
     def findDiagonalOrder(self, nums: List[List[int]]) -> List[int]:
-        mat = defaultdict(list)
+        """
+        what i notice: 
+        - when traversing it goes from bottom left to bottom right
+        - it can be different sizes
+        - values along the same diagonal all add up to the same index
+        - make a hashmap to capture all elements and store em
+        - after create a result array
+        """
 
-        # group elements by the sum of their indices 
+        track = defaultdict(list)
+
+        # map index sum values and list of nums
         for i in range(len(nums)):
             for j in range(len(nums[i])):
-                mat[i+j].append(nums[i][j])
+                track[i + j].append(nums[i][j])
 
-        result = []
-
-        # reverse the list before adding to the result
-        for k,v in mat.items():
-            for num in reversed(v):
-                result.append(num)
-
-        return result
+        res = []
+        
+        # go through each list and add the reversed 
+        for k,v in track.items():
+            for num in reversed(track[k]):
+                res.append(num)
+        
+        return res
