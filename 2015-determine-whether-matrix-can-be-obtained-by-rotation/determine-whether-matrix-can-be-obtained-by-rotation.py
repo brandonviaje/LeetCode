@@ -7,12 +7,12 @@ class Solution(object):
         """
 
         # rotate the first matrix 90 degrees and check if they look the same as target matrix
-
-        # perform a vertical reversal 3 times, check if you ever get a matching pair
-        for i in range(4):
+        # perform a rotation 4 times, check if you ever get a matching pair
+        for _ in range(4):
             top = 0
             bottom = len(mat) - 1
 
+            # perform a vertical reversal
             while top < bottom:
                 for col in range(len(mat)):
                     # perform the swap
@@ -30,6 +30,6 @@ class Solution(object):
             if mat == target:
                 return True
 
-        # Else return false
+        # return false if no matches
         return False
         
