@@ -30,7 +30,7 @@ Some of the patterns/algorithms that I have come across so far:
 - Sliding Window
 - BackTracking
 - Rolling Hash
-- Top Down DP
+- Dynamic Programming
 - Topological Sort
 - Greedy
 - DFS
