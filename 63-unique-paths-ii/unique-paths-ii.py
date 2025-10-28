@@ -22,17 +22,22 @@ class Solution:
         m = len(obstacleGrid)
         n = len(obstacleGrid[0])
 
-        @lru_cache(maxsize=None) # cache to store previously computed subproblems
+        memo = {} # cache to store previously computed subproblems
         def dfs(row,col):
+            # cache precomputed solutions
+            if(row,col) in memo:
+                return memo[(row,col)]
 
             # an obstacle, bounds check
             if row >= m or col >= n or obstacleGrid[row][col] == 1:
                 return 0
+
             # we have found a path
             if (row,col) == (m-1,n-1):
                 return 1
 
             # recurse to find all unique paths
-            return dfs(row+1,col) + dfs(row,col+1)
+            memo[(row,col)] =  dfs(row+1,col) + dfs(row,col+1)
+            return memo[(row,col)]
 
         return dfs(0,0)
