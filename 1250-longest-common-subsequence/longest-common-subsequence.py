@@ -1,23 +1,20 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        memo = {}
+        # bottom up DP
 
-        def DP(index1,index2):
-            # store precomputed solution
-            if (index1,index2) in memo:
-                return memo[(index1,index2)]
+        n = len(text1)
+        m = len(text2)
 
-            # if out of bounds return 0
-            if index1 >= len(text1) or index2 >= len(text2):
-                return 0
+        # initialize table
+        table = [[0 for j in range(m+1)] for i in range(n+1)]
 
-            # if we find matching chars, find the LCS of the smaller substring not including this character
-            if text1[index1] == text2[index2]:
-                memo[(index1,index2)] = 1 + DP(index1+1,index2+1)
-            else: # we did not find any matching, explore the substrings
-                memo[(index1,index2)] = max(DP(index1+1,index2),DP(index1,index2+1))
+        for i in range(n-1,-1,-1):
+            for j in range(m-1,-1,-1):
+                if text1[i] == text2[j]:
+                    # add its diagonal (where already precomputed solutions are)
+                    table[i][j] = 1 + table[i + 1][j + 1]
+                else:
+                    # explore down or right 
+                    table[i][j] = max(table[i + 1][j], table[i][j+1])
 
-            return memo[(index1,index2)]
-
-        return DP(0,0)
-            
+        return table[0][0]
