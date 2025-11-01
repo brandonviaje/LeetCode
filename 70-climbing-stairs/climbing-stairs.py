@@ -1,9 +1,17 @@
 class Solution:
-    @lru_cache(maxsize = None)
     def climbStairs(self, n: int) -> int:
-        # base case
-        if n <= 1:
-            return 1
+        memo = {}
+        def DP(index):
+            if index in memo:
+                return memo[index]
 
-        return self.climbStairs(n-1) + self.climbStairs(n-2)
-        
+            if index > n:
+                return 0
+
+            if index == n:
+                return 1
+
+            memo[index] = DP(index + 1) + DP(index + 2)
+            return memo[index]
+
+        return DP(0)
