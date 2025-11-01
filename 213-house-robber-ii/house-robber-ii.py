@@ -1,35 +1,28 @@
 class Solution:
-    
     def rob(self, nums: List[int]) -> int:
         """
-        brute force by backtracking the number of ways you can take money
-        return the biggest amount
-
-        save computer subproblems
-
-        if you take from first house, cant take from last
-
-        0... n-1
-        1 ... n
-
-        T(i) = max money you can take
-
-        T(i) = max(rob(0,n-1),rob(1,n))
-
+        simulate the max amount of money you can take through 0 to n-2 and 1  to n-1
+        subproblem find the biggest cost of robbing current house then next, or skipping and stealing next
         """
 
-        n = len(nums)
-        if n == 1:
+        if(len(nums) == 1):
             return nums[0]
-        
-        def robRange(arr):
-            prev2, prev1 = 0, 0
-            
-            for num in arr:
-                curr = max(prev1, prev2 + num)
-                prev2, prev1 = prev1, curr
 
-            return prev1
+        def robHouse(start,end):
+            memo = {}
+            def DP(index):
+                if index in memo:
+                    return memo[index]
+                if index > end:
+                    return 0
 
-        # Exclude first house (nums[1:]) or exclude last house (nums[:-1])
-        return max(robRange(nums[:-1]), robRange(nums[1:]))
+                memo[index] = max(nums[index] + DP(index+2), DP(index+1))
+                return memo[index]
+
+            return DP(start)
+
+        # simulate first robbing from 0th house to n-2 house,
+        # simualte second robbing from 1st house to n-1 house.
+        # get max out of the two
+        total = max(robHouse(0,len(nums)-2), robHouse(1,len(nums)-1))
+        return total
