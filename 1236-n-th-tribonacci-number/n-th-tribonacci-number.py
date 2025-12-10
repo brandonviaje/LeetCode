@@ -1,19 +1,21 @@
-class Solution:
-    
-    def __init__(self):
-        self.memo = {}
-    def tribonacci(self, n: int) -> int:
+class Solution(object):
+    def tribonacci(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        memo = {}
+        def DP(index):
+            if index in memo:
+                return memo[index]
 
-        # CHECK IF ALREADY COMPUTED
-        if n in self.memo:
-            return self.memo[n]
-        # BASE CASES
-        if n == 0:
-            return 0
-        if n <= 2:
-            return 1
+            if index == 0:
+                return 0
 
-        # RECURRENCE RELATION
-        self.memo[n] = self.tribonacci(n-1) + self.tribonacci(n-2) + self.tribonacci(n-3)
-        return self.memo[n]
+            if 0<index<=2:
+                return 1
 
+            memo[index] = DP(index-3) + DP(index -2) + DP(index -1)
+            return memo[index]
+
+        return DP(n)
