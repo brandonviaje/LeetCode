@@ -23,9 +23,10 @@ class Solution(object):
         sub optimal: brute force sliding window approach
         optimal: dynamic programming approach
 
-        let d[i] be the number of alternating subarrays ending at index i
+        let dp[i] be the number of alternating subarrays ending at index i
 
-        d[i] = d[i-1] + 1
+        dp[i] = dp[i-1] + 1   if nums[i] != nums[i-1]
+        dp[i] = 1            if  nums[i] == nums[i-1]
 
         """
         result = 1
