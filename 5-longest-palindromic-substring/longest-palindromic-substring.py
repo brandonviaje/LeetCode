@@ -1,49 +1,45 @@
-from collections import deque
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         """
+        build palindromic substring outwards, check each character and build substring outwards
 
-        "babad"
+        babad
          ^
-              ^
-
-        expand from the center to build our palindrome substring
-        expand the substring regardless if the initial length is odd or even, check both
+           ^
+        
+        if size of curr substring (r-l+1) > len(result), update result
         """
-        # two pointers to expand string from the center
-        def expand(i,j):
-            l,r = i,j
-            
-            # expand from center to detect if its a palindrome
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                l -= 1
-                r += 1
 
-            return r - l - 1 # return length of substring once no more matching palindromes
-
-        result = [0,0]
+        resIdx = 0
+        resLen = 0
 
         for i in range(len(s)):
-            # consider odd length palindromes
-            odd = expand(i,i)
+            # odd len string
+            l,r = i,i
 
-            # check if this is the greatest len
-            if odd > result[1] - result[0] + 1:
-                # get the num of characters on each side of the palindrome ( for odd)
-                dist = odd//2
-                result = [i-dist,i+dist] # update current result arr
+            while l>=0 and r < len(s) and s[l] == s[r]:
+                # check if curr str > prev res, update if it is
+                if(r-l+1) > resLen:
+                    resIdx = l
+                    resLen = (r-l+1)
+                # expand outwards
+                r += 1
+                l -= 1
 
-            # consider even length palindromes
-            even = expand(i,i+1)
+            # even len string
+            l,r = i, i+1
+            
+            while l>=0 and r < len(s) and s[l] == s[r]:
+                # check if curr str > prev res, update if it is
+                if(r-l+1) > resLen:
+                    resIdx = l
+                    resLen = (r-l+1)
+                
+                # expand outwards
+                r += 1
+                l -= 1
 
-            # check if this is the greatest len
-            if even > result[1] - result[0] + 1:
-                # get the num of characters on each side of the palindrome ( for even)
-                dist = (even//2) - 1
-                result = [i - dist, i + 1 + dist] # update current result arr
+        return s[resIdx:resIdx +resLen] # return substring of longest palindrome
 
-        i,j = result # parse from result list and return 
-
-        return s[i:j+1]
-
-        # T O (n^2) S O(1)
+        # T O(n)
+        # S O(n)
