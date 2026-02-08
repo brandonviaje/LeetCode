@@ -1,17 +1,34 @@
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        prefix = min(strs)
+        """
+        need to find the longest common prefix in all the strings
+        LCP = ""
 
-        for i in range(len(strs)):
-            word = strs[i]
-            word = word[0:len(prefix)]
+        [flower, flow, flight]
+         ^
+         ^
 
-            for j in range(len(prefix)):
-                if word[j] != prefix[j]:
-                    prefix = prefix[:j]
-                    break
-                    
-        if len(prefix) != 0:
-            return prefix
-        return ""
-                
+        LCP will be bottlecapped by the smallest string
+        limit = min(limit,len(string)) 
+        use the limit as the pointer, while ptr <= limit
+        """
+
+        if not strs:
+            return LCP
+
+        LCP = ""
+        strs = sorted(strs) # sort the strings lexicographically
+
+        # only need to worry about the first and last strings as they are the most alphabetically different
+        first = strs[0]
+        last = strs[-1]
+        limit = len(min(first,last))
+
+        for i in range(limit):
+            # if no more common prefix return
+            if(first[i] != last[i]):
+                return LCP
+
+            LCP += first[i]
+
+        return LCP
