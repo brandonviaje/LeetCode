@@ -1,33 +1,22 @@
-class Solution(object):
-    def trap(self, height):
+class Solution:
+    def trap(self, height: List[int]) -> int:
         """
-        :type height: List[int]
-        :rtype: int
+        the bottleneck of water trapped inside would be the minimum of the left and right max
         """
-
-
-        """
-        intuition:
-        - we can find how to do this by taking the left max and the right max
-        - you can find the max of the difference of the left pointer and the leftMax
-        """
-
-        l,r = 1,len(height)-2
-        lMax = height[l - 1]
-        rMax = height[r + 1]
+        l,r = 0,len(height)-1
+        leftMax = height[l]
+        rightMax = height[r]
         result = 0
 
-        while l<=r:
-            # if the rMax is > lMax
-            if rMax <= lMax:
-                result += max(0, rMax - height[r])
-                rMax = max(rMax, height[r])
-                r -= 1
-            else:
-                result += max(0, lMax - height[l])
-                lMax = max(lMax, height[l])
+        # process the entire elevation map
+        while l < r:
+            if leftMax < rightMax:
                 l += 1
+                leftMax = max(leftMax,height[l])
+                result += leftMax - height[l]
+            else:
+                r -= 1
+                rightMax = max(rightMax,height[r])
+                result += rightMax - height[r]
 
         return result
-
-        # T O(n) S O(1)
