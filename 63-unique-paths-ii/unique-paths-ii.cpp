@@ -1,28 +1,38 @@
 class Solution {
 public:
-    int DP(int r, int c, vector<vector<int>>& grid, vector<vector<int>>& memo) {
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        if(obstacleGrid.empty() || obstacleGrid[0][0] == 1)
+        {
+            return 0;
+        }
 
-        int m = grid.size();
-        int n = grid[0].size();
+        const int ROWS = obstacleGrid.size();
+        const int COLS = obstacleGrid[0].size();
+        vector<int> dp(COLS,0);
+        dp[0] = 1;
 
-        // base case
-        if(r >= m || c >= n || grid[r][c] == 1) return 0;
-        if(r == m-1 && c == n-1) return 1;
+        for(int i{}; i < ROWS; i++)
+        {
+            for(int j{}; j < COLS; j++)
+            {
+                if(obstacleGrid[i][j]==1)
+                {
+                    dp[j] = 0;
+                }
+                else{
+                    if(j > 0)
+                    {
+                        dp[j] += dp[j-1];
+                    }
+                }
+            }
+        }
+
+        for(int num : dp)
+        {
+            std::cout << num << '\n';
+        }
         
-        // check if sol precomputed
-        if(memo[r][c] != -1) return memo[r][c];
-
-        memo[r][c] = DP(r+1,c,grid,memo) + DP(r,c+1,grid,memo); // recurrence relation
-
-        return memo[r][c];
-    }
-
-    int uniquePathsWithObstacles(vector<vector<int>>& grid) {
-        int m = grid.size();
-        int n = grid[0].size();
-
-        vector<vector<int>> memo(m, vector<int>(n, -1));
-
-        return DP(0,0,grid,memo);
+        return dp[COLS-1];
     }
 };
