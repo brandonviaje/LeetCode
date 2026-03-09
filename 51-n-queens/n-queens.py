@@ -1,40 +1,38 @@
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         cols = set()
-        posDiag = set() # r + c
-        negDiag = set() # r - c
+        posDiag = set() # row + col
+        negDiag = set() # row - col
 
-        # create board state and result list
+        # create result and board state
         result = []
-        board = [["."] * n for i in range(n)]
+        board = [['.'] * n for i in range(n)]
 
-        # iterate row by row
+        # iterate through board row by row
         def backtrack(row):
-            # base case:if we reached end of board add to result
+            # base case, if reach end of board we found a distinct puzzle
             if row == n:
-                result.append(["".join(board[r]) for r in range(n)])
+                result.append(["".join(row) for row in board]) # add board to result
                 return
-
-            # try every col in the row
+            
+            # iterate through each col in row
             for col in range(n):
-                # skip if prev queen is placed on same col/diags
-                if col in cols or (row+col) in posDiag or (row-col) in negDiag:
+                # check if a queen occupies this diag/cols
+                if col in cols or (row - col) in negDiag or (row+col) in posDiag:
                     continue
-
-                # add to set/update board
+                
                 cols.add(col)
-                posDiag.add(col+row)
-                negDiag.add(row-col)
+                negDiag.add(row - col)
+                posDiag.add(row + col)
                 board[row][col] = "Q"
 
-                backtrack(row+1) # recurse further
+                backtrack(row+1) # recurse to next row
 
-                # undo
+                # backtrack/undo
                 cols.remove(col)
-                posDiag.remove(col+row)
-                negDiag.remove(row-col)
-                board[row][col] = "." 
+                negDiag.remove(row - col)
+                posDiag.remove(row + col)
+                board[row][col] = "."
 
         backtrack(0)
         return result
-        
