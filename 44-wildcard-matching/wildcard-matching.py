@@ -46,7 +46,6 @@ class Solution:
                 memo[(i,j)] = DP(i+1,j+1)
                 return memo[(i,j)]
 
-            memo[(i,j)] = False # store state
             return False    
 
         return DP(0,0)
