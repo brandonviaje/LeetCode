@@ -6,51 +6,37 @@
 #         self.right = right
 class Solution:
     def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
-        """
-        convert tree to graph (DFS)
-        run BFS starting from start node and keep track of how long it takes to cover whole tree
-        """
-
-        graph = defaultdict(list)
-
+        parent = {}
         stack = [root]
 
+        # DFS 
         while stack:
             node = stack.pop()
-        
+
+            # check if it is starting node
             if node.val == start:
-                begin = node
-            
+                begin =  node
+
             if node.right:
-                graph[node].append(node.right)
-                graph[node.right].append(node)
+                parent[node.right] = node
                 stack.append(node.right)
 
             if node.left:
-                graph[node].append(node.left)
-                graph[node.left].append(node)
+                parent[node.left] = node
                 stack.append(node.left)
 
-        begin.val = 0
-        queue = deque([begin])
+        queue = deque([(begin,0)]) # (node, 0)
+        seen = {begin}             # mark start node as seen
         result = 0
-        seen = set()
-
-        # mark beginning node as seen
-        seen.add(begin)
 
         while queue:
-            cand_node = queue.popleft()
-        
-            # traverse neighbs
-            for neighb in graph[cand_node]:
-            
-                if neighb not in seen:
-                    queue.append(neighb)
-                    neighb.val = cand_node.val + 1
-                    result = max(result, neighb.val)
+            node, time = queue.popleft()
+            result = max(result,time)    
 
-                seen.add(neighb)
-
+            # check curr nodes children and parent (if it exists)
+            for neighb in (node.left, node.right, parent.get(node)):
+                if neighb and neighb not in seen:
+                    seen.add(neighb)
+                    queue.append((neighb,time+1))
 
         return result
