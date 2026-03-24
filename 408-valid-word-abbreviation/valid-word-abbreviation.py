@@ -13,36 +13,29 @@ class Solution:
         
         if we are able to make it through the loop of abbreviations without return false, then it must be a valid abbreviation for that word
         """
-        ptr = 0
-        i = 0
-        
-        while i < len(abbr):
-            # check if character is a num
-            if abbr[i].isdigit():
-                start = i
+        i,j = 0,0
+        while j < len(abbr):
+            num = 0
 
-                # check if leading zero
-                if abbr[i] == "0":
+            # check if abbr has digits
+            if abbr[j].isdigit():
+                if abbr[j] == '0':
                     return False
 
-                # check if there are numbers ahead
-                while i < len(abbr) and abbr[i].isdigit():
-                    i += 1
-                
-                num = int(abbr[start:i]) # get current num to skip
-                
-                # check if remaining is > word
-                if ptr + num > len(word):
+                while j < len(abbr) and abbr[j].isdigit():
+                    num = num * 10 + int(abbr[j]) # build num
+                    j += 1
+
+                if i + num > len(word):
+                    return False
+
+                i += num # update curr ptr
+            else:
+                if i >= len(word) or word[i] != abbr[j]:
                     return False
             
-                ptr += num # advance ptr n times
-            else:
-                # check if ptrs are on same letter or if ptr overflow
-                if ptr >= len(word) or word[ptr] != abbr[i]:
-                    return False
-
-                #  update ptrs
+                # update ptr
                 i += 1
-                ptr += 1
+                j += 1
 
-        return ptr == len(word) # check if we sucessfully made it to the end
+        return i == len(word) # check if we reached the end of word
