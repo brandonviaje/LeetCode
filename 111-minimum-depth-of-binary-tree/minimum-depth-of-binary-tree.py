@@ -4,30 +4,21 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-from collections import deque
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
-        
-        # if root is empty return 0
-        if not root:
-            return 0
 
-        # contain root node and starting depth 1
-        queue = deque([(root,1)])
+        def dfs(node):
+            # base case
+            if not node:
+                return 0
 
-        #BFS to find minimum depth
-        while queue:
+            # if only one child is non-empty go into that recursion
+            if not node.left:
+                return 1 + dfs(node.right)
+            if not node.right:
+                return 1 + dfs(node.left)
 
-            cand, depth = queue.popleft()
+            return 1 + min(dfs(node.left),dfs(node.right))
 
-            # if leaf node return depth
-            if not cand.left and not cand.right:
-                return depth
-            
-            if cand.left:
-                queue.append((cand.left,depth+1))
-            
-            if cand.right:
-                queue.append((cand.right,depth+1))
-        
+        return dfs(root)
         
