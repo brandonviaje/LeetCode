@@ -21,9 +21,18 @@ class Solution:
         we can do an iterative approach where we test every val x,y 
         """
         result = []
-        for x in range(1,1000):
-            for y in range(1,1000):
-                if customfunction.f(x,y) == z:
-                    result.append([x,y])
+        x,y = 1, z
+
+        while x <= z and y > 0:
+            
+            # check if curr value equals z
+            if customfunction.f(x,y) == z:
+                result.append([x,y])
+                x += 1
+                y -= 1
+            elif customfunction.f(x,y) > z: # if greater than, reduce y
+                y -= 1
+            else:                           # if less than, increase x
+                x += 1
 
         return result
