@@ -1,26 +1,22 @@
 class Solution:
     def findDiagonalOrder(self, nums: List[List[int]]) -> List[int]:
         """
-        what i notice: 
-        - when traversing it goes from bottom left to bottom right
-        - it can be different sizes
-        - values along the same diagonal all add up to the same index
-        - make a hashmap to capture all elements and store em
-        - after create a result array
+        every number on the pos diag all share the same row + col val
+
+        we can traverse the 2d arr and add the numbers mapped to the same diagonal
+        then we can build the list using our dict
         """
+        diag = defaultdict(list)
+        for row in range(len(nums)):
+            for col in range(len(nums[row])):
+                diag[row+col].append(nums[row][col])
 
-        track = defaultdict(list)
+        result = []
 
-        # map index sum values and list of nums
-        for i in range(len(nums)):
-            for j in range(len(nums[i])):
-                track[i + j].append(nums[i][j])
+        for key,nums in diag.items():  
+            # build result list
+            while nums:
+                result.append(nums.pop())
+ 
 
-        res = []
-        
-        # go through each list and add the reversed 
-        for k,v in track.items():
-            for num in reversed(track[k]):
-                res.append(num)
-        
-        return res
+        return result
