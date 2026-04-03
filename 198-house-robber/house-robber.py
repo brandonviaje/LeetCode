@@ -1,33 +1,24 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
         """
-        intuition:
-        - you have to make the best choice when robbing a house
-        - check if you should rob this house or skip it
-        - if you rob it, you add nums[i] to the best result from i-2 (you can’t rob two in a row)
-        - if you skip it, just take the result from i-1
-        - you’re always asking: which one gives more money
-        - you build up this decision for each house
-        - dp[i] = the max money you can rob up to house i
-        - tabulation: solve small subproblems,and use them to solve the bigger one 
+        cannot rob adjacent houses 
+
+        states:
+        - rob current house
+        - skip current house
+
+        DP[i] the max amount of money you can rob without alertin popo
+        DP[i] = max(nums[i] + DP[i-2], DP[i-1])
+        DP[i] = 0 if i > len(nums)
         """
 
-        if not nums:
-            return 0
+        DP = [0] * (len(nums) + 2)
 
-        if len(nums) <= 2:
-            return max(nums)
+        for i in range(len(nums)-1,-1,-1):
+            # base case
+            if i == len(nums)-1:
+                DP[i] = nums[i]
 
-        # build the table
-        dp = [0] * len(nums)
-        dp[0] = nums[0]
-        dp[1] = max(nums[0],nums[1])
+            DP[i] = max(nums[i] + DP[i+2], DP[i+1])
 
-        # fill the current dp index with the best choice, either skipping the house or robbing it.
-        # start at the second index so u can do the adjacent check after
-        for i in range(2,len(nums)):
-            dp[i] = max(dp[i-1], nums[i] + dp[i-2])
-
-        return dp[-1] # return the last val, which gives u the biggest result
-
-        # T O(n) S O(n)
+        return DP[0]
