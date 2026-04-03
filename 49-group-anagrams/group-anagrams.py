@@ -1,18 +1,20 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        anagramStr = defaultdict(list)
+        """
+        need to group anagrams together
+        
+        we can group all anagrams that have the same amount of characters together using a hashmap
+        if the curr str has same character count with another, add it to that bucket
+        """
+
+        result = defaultdict(list)
 
         for s in strs:
-            # create array to count how many letters are in each string
             arr = [0] * 26
-            for c in s:
-                # map the character from 0 to 25
-                arr[ord(c) - ord('a')] += 1
+            for char in s:
+                arr[ord(char) - ord('a')] += 1 # add how many times letter is present
 
-            # convert array to tuple so u can use it in map
-            key = tuple(arr)
-            anagramStr[key].append(s) # add word if the same char arr
+            result[tuple(arr)].append(s) # add to strings with same freq arrr
 
-        return list(anagramStr.values())        
-
-        # T O(n * k) S O(n * k)
+        return list(result.values())
+            
