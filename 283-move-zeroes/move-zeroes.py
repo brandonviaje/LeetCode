@@ -2,18 +2,19 @@ class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
+
+        suboptimal: we build an array where we add all the non negative numbers and then add all the 0s after
+        have a ptr keep track of the non-zero nums, and then swap , after fill the rest with zeros
         """
-        # create a pointer to insert non zeroes in order 
-        insert_pos = 0
 
-        for read in range(len(nums)):
-            #if the non zero put it in place
-            if nums[read] != 0:
-                nums[insert_pos] = nums[read]
-                insert_pos += 1
+        zeros = 0
 
-        #everything else from insert_pos should be 0
-        for i in range(insert_pos,len(nums)):
-            nums[i] = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[i],nums[zeros] = nums[zeros],nums[i]
+                zeros += 1
 
-        # T O(n) S O(1)
+        # pad remaining arr with zeros
+        for j in range(zeros,len(nums)):
+            nums[j] = 0
+        
