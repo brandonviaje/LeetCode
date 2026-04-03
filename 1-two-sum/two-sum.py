@@ -1,20 +1,24 @@
-class Solution(object):
-    def twoSum(self, nums, target):
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
         """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
+        given an array nums, and a target
+        need to return indices of two nums s.t. they add up to target
+
+        a brute force way to do this is using two loops to check each pair and combination
+        this would give us an O(n^2) TC
+
+        another way to do this is by subtracting the current number by the target, 
+        and check if the diff between the two nums are already seen in the hashmap
         """
-        count = {}
 
-        for i, num in enumerate(nums):
-            diff = target - num
+        seen = {}
 
-            if diff in count:
-                return [count[diff],i]
+        for i in range(len(nums)):
+            diff = target - nums[i]
 
-            count[num] = i
-        
-        return []
-        
-        
+            if diff in seen:
+                return [seen[diff], i]
+            
+            seen[nums[i]] = i
+
+    
