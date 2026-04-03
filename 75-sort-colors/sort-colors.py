@@ -2,33 +2,37 @@ class Solution:
     def sortColors(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
+        brute force: just call a sort function O(nlogn)
         """
-        left,right = 0, len(nums)-1
-        zeroes = 0
-
-
+        
         """
-        [0, 0, 1, 1, 2, 2]
-               ^
-                   ^
+        [0,0,1,1,2,2]
+             ^
+                 ^ 
                ^
 
-        [0,1,2]
+        [1,0,2]
            ^
-           ^
-           
-           ^ 
-        """
+         ^
+            ^
 
-        while left <= right:
-            pass
-            if nums[left] == 0:
-                nums[left],nums[zeroes] = nums[zeroes],nums[left]
-                zeroes += 1
-                left += 1
-            elif nums[left] == 1:
-                left += 1
+        [0,0,1,1,1,2,2]
+             ^
+                    ^
+                    ^
+        """
+        l,r = 0,len(nums)-1
+        zeros = 0
+
+        while l <= r:
+            if nums[l] == 2:
+                nums[l],nums[r] = nums[r],nums[l]
+                r -= 1
+            elif nums[l] == 1:
+                l += 1
             else:
-                nums[right],nums[left] = nums[left],nums[right] 
-                right -= 1
+                nums[l],nums[zeros] = nums[zeros],nums[l]
+                zeros += 1
+                l += 1
+
         
